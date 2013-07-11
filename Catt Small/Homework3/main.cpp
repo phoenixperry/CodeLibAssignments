@@ -11,39 +11,50 @@
 #include <vector>
 using namespace std;
 int main() {
-    cout << "You are the new companion! You are going on a trip with Dr. Who. You can take up to 10 times with you in this suitcase that can hold any item of any size. What would you like to add?\n";
     vector<string> inventory;
     vector<string>::const_iterator iter;
-    
     bool gameLoop = true; // set up a game loop
+    string gameItem;
+    string yesNo;
+    int turnCount = 0;
+
+    cout << "You are the new companion! You are going on a trip with Dr. Who. You can take up to 10 times with you in this suitcase that can hold any item of any size.\n";
     
     while(gameLoop) {
-        string gameItem;
-        cin >> gameItem;
-        inventory.push_back(gameItem);
-        cout << "Your Items:" << endl;
+    cout << "\nWhat would you like to add to your inventory?\n";
+     cin >> gameItem;
+     inventory.push_back(gameItem);
+        
+        cout << "\nYour Items:" << endl;
+        
         for(iter = inventory.begin(); iter != inventory.end(); ++iter) {
-            cout << *iter << endl;
+            cout << *iter << "\n";
         }
-        cout << "Do you wish to remove any item? (yes/no)" << endl;
-        string yesNo;
+        
+        cout << "\nDo you wish to remove any item? (yes/no)" << endl;
         cin >> yesNo;
         if (yesNo == "yes") {
-            cout << "What would you like to remove?" << endl;
+            cout << "\nWhat would you like to remove?" << endl;
             string removeItem;
             cin >> removeItem;
             iter = find(inventory.begin(), inventory.end(), removeItem);
+            
             if (iter != inventory.end()){
-                var removeItemPosition = iter.size();
-                inventory.pop_back(removeItemPosition);
+                inventory.erase(iter);
                 cout << removeItem << " has been removed." << endl;
+                cout << "\nYour Items:" << endl;
+                
+                for(iter = inventory.begin(); iter != inventory.end(); ++iter) {
+                    cout << *iter << "\n";
+                }
             }
         }
-        int turnCount = 0;
+        
         turnCount++;
         if (turnCount == 10) {
             gameLoop = false;
         }
+
     }
     return 0;
 }
